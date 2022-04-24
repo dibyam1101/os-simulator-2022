@@ -72,13 +72,11 @@
     function DisplayList() {
       var table = document.getElementById("ept");
       console.log(stuff[stuff.length - 1].no);
-      console.log("inside display list");
       $('#ept').append("<tr style=" + "background-color:#fff;" + "><td>" + stuff[stuff.length - 1].no + "</td><td>" + stuff[stuff.length - 1].at + "</td><td>" + stuff[stuff.length - 1].bt1 + "</td></tr>");
     }
     function AddtoList() {
       var arrivalTime = parseInt(document.getElementById("at1").value);
       var burstTime = parseInt(document.getElementById("bt1").value);
-
       if (document.getElementById("at1").value == "") {
         alert("Arrival time field is empty!");
         return;
@@ -98,10 +96,8 @@
         alert("Burst time cannot be negative!");
         return;
       }
-
       var ioTime = parseInt("0");
       var FinalburstTime = parseInt("0");
-
       console.log(arrivalTime);
       console.log(burstTime);
       var rtj = [];
@@ -130,7 +126,7 @@
       DisplayList();
     };
     $('#start').click(function () {
-      srtf();
+      ljf();
       var i = 0;
       console.log(total);
       console.log(sequence[total].start);
@@ -142,7 +138,7 @@
       $('#outer-div').css('width', containerWidth + 'px');
       displayBlock(i);
     })
-    function srtf() {
+    function ljf() {
       var proc = [];
       for (i = 0; i < stuff.length; i++) {
         proc.push(i + 1);
@@ -167,11 +163,13 @@
       var temp = -1000;
       var st_time;
       sequence = [];
+      var minus;
       while (complete != n) {
-        var min = 1000;
+        var min = 0;
         var minindex = 100;
         for (i = 0; i < n; i++) {
-          if (stuff[i].at <= time && stuff[i].finish == 0 && (stuff[i].point == 0 || stuff[i].point == 2) && stuff[i].check == 0 && stuff[i].rt[stuff[i].point] < min) {
+          if (stuff[i].at <= time && stuff[i].finish == 0 && (stuff[i].point == 0 || stuff[i].point == 2) && stuff[i].check == 0 && stuff[i].rt[stuff[i].point] > min) {
+            console.log(stuff[i]);
             min = stuff[i].rt[stuff[i].point];
             minindex = i;
           }
@@ -181,8 +179,9 @@
           if (temp != minindex) {
             st_time = time;
           }
-          stuff[minindex].rt[stuff[minindex].point] = stuff[minindex].rt[stuff[minindex].point] - 1;
-          time = time + 1;
+          minus = stuff[minindex].rt[stuff[minindex].point];
+          stuff[minindex].rt[stuff[minindex].point] = 0;
+          time = time + minus;
           console.log(time);
           console.log(minindex);
           if (temp != minindex) {
@@ -190,8 +189,8 @@
           }
           for (i = 0; i < stuff.length; i++) {
             if (stuff[i].check == 1) {
-              stuff[i].rt[stuff[i].point]--;
-              if (stuff[i].rt[stuff[i].point] == 0) {
+              stuff[i].rt[stuff[i].point] -= minus;
+              if (stuff[i].rt[stuff[i].point] <= 0) {
                 stuff[i].check = 0;
                 stuff[i].point++;
               }
@@ -219,7 +218,7 @@
           }
           temp = minindex;
         }
-        if (min == 1000 && minindex == 100) {
+        if (min == 0 && minindex == 100) {
           console.log(time);
           var temp1 = null;
           if (temp != temp1)
@@ -254,20 +253,21 @@
         sum_tat += stuff[i].tat;
       average_tat = sum_tat / n;
       var pixel = 0;
-      var sum_null = 0;
       throughput = n / time;
+      var sum_null = 0;
       for (i = 0; i < sequence.length; i++) {
         if (sequence[i].n == null) {
           sum_null += sequence[i + 1].start - sequence[i].start;
         }
       }
       cpu_efficiency = ((time - sum_null) / time) * 100;
+      for (i = 0; i < n; i++)
+        console.log(stuff[i].tat);
     }
-
     function drawTable(i) {
       if (i < stuff.length) {
         var table = document.getElementById("ptable");
-        console.log(stuff[i].wt);
+        console.log(stuff[i].tat);
         $("#ptable").append("<tr><td>" + stuff[i].no + "</td><td>" + stuff[i].at + "</td><td>" + stuff[i].bt1 + "</td><td>" + stuff[i].wt + "</td><td>" + stuff[i].tat + "</td></tr>");
         drawTable(i + 1);
       }
@@ -284,6 +284,8 @@
 
     }
 
+
+
     function displayBlock(i) {
       if (i == total) {
         document.getElementById("ptab").style.display = 'inline-table';
@@ -293,6 +295,7 @@
 
       var blockWidth = (sequence[i + 1].start - sequence[i].start) * pixel;
       var processName = sequence[i].n;
+
       document.getElementById("gantt").style.display = 'block';
       document.getElementById("outer-div").style.display = 'inline-block';
       document.getElementById("bt1").style.display = 'none';
@@ -304,7 +307,7 @@
         $('#outer-div').append('<div class="block" id="process-' + sequence[i].start + '" style="background-color:rgba(112, 128, 144, 0.44);">CPU Idle<div class="bottom">' + sequence[i + 1].start + '</div></div>');
       }
       else {
-        $('#outer-div').append('<div class="block" id="process-' + sequence[i].start + '">P' + sequence[i].n + '<div class="bottom">' + sequence[i + 1].start + '</div></div>');
+        $('#outer-div').append('<div class="block" id="process-' + sequence[i].start + '">P-' + sequence[i].n + '<div class="bottom">' + sequence[i + 1].start + '</div></div>');
       }
       $('#process-' + sequence[i].start).css('width', blockWidth);
 
@@ -335,11 +338,11 @@
   }
 
   #outer-div {
-    margin: auto;
     display: none;
-
+    margin: auto;
     width: 802px;
     height: 50px;
+    position: relative;
     border: 1px solid black;
   }
 
@@ -351,10 +354,6 @@
     text-align: center;
     background-color: rgba(218, 152, 11, 0.44);
     height: 48px;
-  }
-
-  #ptab {
-    display: none;
   }
 
   .bottom {
@@ -402,13 +401,16 @@
     </section>
 
 
+
     <div class="container">
       <h1 style="padding:40px;">
-        Shortest Remaining Time First
+        Longest Job First
       </h1>
+
       <br>
       <div>
-        <table id="ep" class="table table-bordered table-striped" style="width:70%" align="center">
+        <h3>Entered Processes:</h3>
+        <table id="ep" class="table table-bordered table-striped" style="width:70%;" align="center">
           <thead class="thead-dark">
             <th>PNO.</th>
             <th>Arrival Time </th>
@@ -418,44 +420,47 @@
           </tbody>
           </thead>
         </table>
-        <div style="width:400px; margin: auto; ">
-          <div class="form-group">
-            <input type='number' class="form-control" min='0' id='at1' placeholder="arrival time"></input>
-          </div>
+      </div>
+      <div style="width:400px; margin: auto; ">
+        <div class="form-group">
+          <input type='number' class="form-control" min='0' id='at1' placeholder="arrival time"></input>
+        </div>
 
-          <div class="form-group">
-            <input type='number' class="form-control " id='bt1' placeholder="burst time"></input>
-          </div>
+        <div class="form-group">
+          <input type='number' class="form-control " id='bt1' placeholder="burst time"></input>
         </div>
       </div>
+
       <button id="add" class="btn btn-secondary" onclick="AddtoList()">Add</button>
       <button id="start" class="btn btn-secondary">Start</button>
       <br>
       <br>
-
-      <h2 id="gantt" style="display:none;">
+      <h2 id="gantt" style="display: none;">
         Gantt Chart
       </h2>
       <div id="outer-div">
       </div>
       <br><br><br>
-      <div id="cardAdd">
-        <table id="ptab" class="table table-bordered table-striped" style="width:70%;margin-top:20px; " align="center">
-          <thead class="thead-dark">
-            <th>PNO.</th>
-            <th>Arrival time</th>
-            <th>Burst time</th>
-
-            <th>Waiting time</th>
-            <th>Turn Around Time</th>
-          </thead>
-
+      <div class="panel-content" id="cardAdd">
+        <table id="ptab" class="table table-bordered table-striped" style="width:70%;margin-top: 20px;" align="center">
+          <thead>
+            <tr id="thead">
+              <th>PNO.</th>
+              <th>Arrival time</th>
+              <th>Burst time</th>
+              <th>Waiting time</th>
+              <th>Turn Around Time</th>
+            </tr>
           <tbody id="ptable">
+
           </tbody>
+          </thead>
         </table>
         <div id="Average"></div>
       </div>
+
     </div>
+
 
   </main><!-- End #main -->
 

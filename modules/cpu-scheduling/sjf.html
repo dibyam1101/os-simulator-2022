@@ -49,6 +49,7 @@
 </head>
 
 <script>
+  /*SJF SCHEDULING*/
 
   var sequence;
   var complete;
@@ -72,12 +73,12 @@
     function DisplayList() {
       var table = document.getElementById("ept");
       console.log(stuff[stuff.length - 1].no);
-      console.log("inside display list");
       $('#ept').append("<tr style=" + "background-color:#fff;" + "><td>" + stuff[stuff.length - 1].no + "</td><td>" + stuff[stuff.length - 1].at + "</td><td>" + stuff[stuff.length - 1].bt1 + "</td></tr>");
     }
     function AddtoList() {
       var arrivalTime = parseInt(document.getElementById("at1").value);
       var burstTime = parseInt(document.getElementById("bt1").value);
+
 
       if (document.getElementById("at1").value == "") {
         alert("Arrival time field is empty!");
@@ -130,7 +131,7 @@
       DisplayList();
     };
     $('#start').click(function () {
-      srtf();
+      sjf();
       var i = 0;
       console.log(total);
       console.log(sequence[total].start);
@@ -142,7 +143,7 @@
       $('#outer-div').css('width', containerWidth + 'px');
       displayBlock(i);
     })
-    function srtf() {
+    function sjf() {
       var proc = [];
       for (i = 0; i < stuff.length; i++) {
         proc.push(i + 1);
@@ -167,11 +168,13 @@
       var temp = -1000;
       var st_time;
       sequence = [];
+      var minus;
       while (complete != n) {
         var min = 1000;
         var minindex = 100;
         for (i = 0; i < n; i++) {
           if (stuff[i].at <= time && stuff[i].finish == 0 && (stuff[i].point == 0 || stuff[i].point == 2) && stuff[i].check == 0 && stuff[i].rt[stuff[i].point] < min) {
+            console.log(stuff[i]);
             min = stuff[i].rt[stuff[i].point];
             minindex = i;
           }
@@ -181,8 +184,9 @@
           if (temp != minindex) {
             st_time = time;
           }
-          stuff[minindex].rt[stuff[minindex].point] = stuff[minindex].rt[stuff[minindex].point] - 1;
-          time = time + 1;
+          minus = stuff[minindex].rt[stuff[minindex].point];
+          stuff[minindex].rt[stuff[minindex].point] = 0;
+          time = time + minus;
           console.log(time);
           console.log(minindex);
           if (temp != minindex) {
@@ -190,8 +194,8 @@
           }
           for (i = 0; i < stuff.length; i++) {
             if (stuff[i].check == 1) {
-              stuff[i].rt[stuff[i].point]--;
-              if (stuff[i].rt[stuff[i].point] == 0) {
+              stuff[i].rt[stuff[i].point] -= minus;
+              if (stuff[i].rt[stuff[i].point] <= 0) {
                 stuff[i].check = 0;
                 stuff[i].point++;
               }
@@ -199,14 +203,14 @@
           }
           if (stuff[minindex].rt[stuff[minindex].point] == 0) {
             if (stuff[minindex].point == 0) {
+              stuff[minindex].check = 1;
+              stuff[minindex].point = 1;
               if (stuff[minindex].rt[1] == 0 && stuff[minindex].rt[2] == 0) {
-                complete++;
                 stuff[minindex].finish = 1;
+                complete++;
                 stuff[minindex].tat = time - stuff[minindex].at;
                 stuff[minindex].wt = stuff[minindex].tat - stuff[minindex].bt1 - stuff[minindex].bt2;
               }
-              stuff[minindex].check = 1;
-              stuff[minindex].point = 1;
             }
             if (stuff[minindex].point == 2) {
               console.log(minindex);
@@ -263,7 +267,6 @@
       }
       cpu_efficiency = ((time - sum_null) / time) * 100;
     }
-
     function drawTable(i) {
       if (i < stuff.length) {
         var table = document.getElementById("ptable");
@@ -284,6 +287,8 @@
 
     }
 
+
+
     function displayBlock(i) {
       if (i == total) {
         document.getElementById("ptab").style.display = 'inline-table';
@@ -293,6 +298,7 @@
 
       var blockWidth = (sequence[i + 1].start - sequence[i].start) * pixel;
       var processName = sequence[i].n;
+
       document.getElementById("gantt").style.display = 'block';
       document.getElementById("outer-div").style.display = 'inline-block';
       document.getElementById("bt1").style.display = 'none';
@@ -328,6 +334,7 @@
 
   p {
     font-size: 3 em;
+    font-style: italic;
   }
 
   #ptab {
@@ -335,9 +342,8 @@
   }
 
   #outer-div {
-    margin: auto;
     display: none;
-
+    margin: auto;
     width: 802px;
     height: 50px;
     border: 1px solid black;
@@ -365,7 +371,6 @@
     margin-bottom: 1;
   }
 </style>
-
 
 <body>
 
@@ -401,23 +406,26 @@
       </div>
     </section>
 
-
     <div class="container">
-      <h1 style="padding:40px;">
-        Shortest Remaining Time First
+      <h1>
+        Shortest Job First
       </h1>
+
       <br>
       <div>
-        <table id="ep" class="table table-bordered table-striped" style="width:70%" align="center">
-          <thead class="thead-dark">
-            <th>PNO.</th>
-            <th>Arrival Time </th>
-            <th>Burst Time</th>
-            </tr>
-          <tbody id="ept">
-          </tbody>
-          </thead>
-        </table>
+        <div style="text-align: center;">
+          <table id="ep" class="table table-bordered table-striped" style="width:70%" align="center">
+            <thead class="thead-dark">
+              <th>PNO.</th>
+              <th>Arrival Time </th>
+              <th>Burst Time</th>
+
+              </tr>
+            <tbody id="ept">
+            </tbody>
+            </thead>
+          </table>
+        </div>
         <div style="width:400px; margin: auto; ">
           <div class="form-group">
             <input type='number' class="form-control" min='0' id='at1' placeholder="arrival time"></input>
@@ -427,9 +435,11 @@
             <input type='number' class="form-control " id='bt1' placeholder="burst time"></input>
           </div>
         </div>
+
       </div>
       <button id="add" class="btn btn-secondary" onclick="AddtoList()">Add</button>
       <button id="start" class="btn btn-secondary">Start</button>
+
       <br>
       <br>
 
