@@ -52,7 +52,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <h1><a href="index.html">Vesperr</a></h1>
+        <h1><a href="../../index.html">Vesperr</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -468,85 +468,64 @@ p{
   margin-bottom: 1px;
 }
 </style>
-<body>
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <a class="navbar-brand" href="../os_sim.html" style="color:white;">OS Simulator</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-            <li class="nav-item active" style="color:white;">
-                <a class="nav-link" style="color:white;" href="index.html">Home</a>
-            </li>
-            <li class="nav-item active" style="color:white;">
-              <a class="nav-link" style="color:white;" href="wiki.html">Wiki</a>
-            </li> 
-          </ul>
-        </div>
-      </nav> -->
-<div class="container">
-  <h1 style="padding:40px;">
-    First Come First Serve
-  </h1>
-    <div>
-      <table id="ep" class="table table-bordered table-striped" style="width:70%;" align="center">
-        <thead class="thead-dark">
-        <th>PNO.</th>
-        <th>Arrival Time </th>
-        <th>Burst Time </th>
-      </tr>
-      <tbody id="ept">
-      </tbody>
-    </thead>
-  </table>
 
-    <div style="width:400px; margin: auto; ">
-      <div class="form-group">
-        <input type='number' class="form-control" min='0' id='at1' placeholder="arrival time"></input>
-      </div>
+<section id="modules" class="features">
+  <div class="container">
 
-      <div class="form-group">
-        <input type='number'  class="form-control " id='bt1' placeholder="burst time"></input>
-      </div>
-      </div>
+    <div class="section-title" data-aos="fade-up">
+      <h2>CPU Scheduling</h2>
+      <p>Fundamental CPU Scheduling Algorithms</p>
     </div>
-      <button id="add" class="btn btn-secondary" onclick="AddtoList()">Add</button>
-      <button id="start" class="btn btn-secondary">Start</button>
-  <br>
-  <br>
 
-  <h2 id="gantt" style="display:none;">
-    Gantt Chart
-  </h2>
-  <div id="outer-div">
-  </div>
-  <br><br><br>
-  
-      <div id="cardAdd">
-      <table id="ptab" class="table table-bordered table-striped" style="width:70%;margin-top:20px; " align="center">
-      <thead>
-      <th>PNO.</th>
-      <th>Arrival time</th>
-      <th>Burst time</th>
-      <th>Waiting time</th>
-      <th>Turn Around Time</th>
-    </thead>
-
-      <tbody id="ptable">
-      </tbody>
-      </table>
-        <div id="Average"></div>
+    <div class="row" data-aos="fade-up" data-aos-delay="300">
+      <div class="col-lg-3 col-md-4">
+        <div class="icon-box">
+          <i class="ri-store-line" style="color: #ffbb2c;"></i>
+          <h3><a href="./fcfs.html">First Come First Serve</a></h3>
+        </div>
       </div>
+      <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+        <div class="icon-box">
+          <i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
+          <h3><a href="./srtf.html">Shortest Remaining Time First</a></h3>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+        <div class="icon-box">
+          <i class="ri-calendar-todo-line" style="color: #e80368;"></i>
+          <h3><a href="">Longest Remaining Time First</a></h3>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
+        <div class="icon-box">
+          <i class="ri-paint-brush-line" style="color: #e361ff;"></i>
+          <h3><a href="">Round Robin</a></h3>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 mt-4">
+        <div class="icon-box">
+          <i class="ri-database-2-line" style="color: #47aeff;"></i>
+          <h3><a href="">Shortest Job First</a></h3>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 mt-4">
+        <div class="icon-box">
+          <i class="ri-gradienter-line" style="color: #ffa76e;"></i>
+          <h3><a href="">Priority</a></h3>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 mt-4">
+        <div class="icon-box">
+          <i class="ri-file-list-3-line" style="color: #11dbcf;"></i>
+          <h3><a href="">Priority Non Emptive</a></h3>
+        </div>
+      </div>
+
+      
+
   </div>
+</section><!-- End Features Section -->
 
-</div>
-</body>
-
-</html>
-
-</body>
 
 </main><!-- End #main -->
 
