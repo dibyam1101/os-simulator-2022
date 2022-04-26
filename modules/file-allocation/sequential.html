@@ -179,24 +179,36 @@
 
 
     <div class="container">
-    
-        <h1 class="some" behavior="alternate" scrollamount=10>Sequential Allocation</h1>
-    
+
+      <h1 class="some" behavior="alternate" scrollamount=10>Sequential Allocation</h1>
+
       <div id="sequ">
 
+
         <div class="visible1 form-group">
+          <p>
+            In this scheme, each file occupies a contiguous set of blocks on the disk. For example, if a file requires n
+            blocks and is given a block b as the starting location, then the blocks assigned to the file will be: b,
+            b+1,
+            b+2,……b+n-1. This means that given the starting block address and the length of the file (in terms of blocks
+            required), we can determine the blocks occupied by the file.
+            The directory entry for a file with contiguous allocation contains
+
+            Address of starting block
+            Length of the allocated portion.
+          </p>
           <br>
           <br>
           <p> Enter the size of memory(number of blocks)</p>
-          <input id="nof" type="number" class = "form-control">
+          <input id="nof" type="number" class="form-control">
           <button class="btn btn-primary s_done" onclick="getSize()">Submit</button>
 
           <br><br>
 
           <div class="s_form s_hide " id="vis2">
             <p> Please add file details </p>
-            File name: <input id="file_name" type="text" class = "form-control">
-            File size(number of blocks): <input id="file_size" type="number" class = "form-control">
+            File name: <input id="file_name" type="text" class="form-control">
+            File size(number of blocks): <input id="file_size" type="number" class="form-control">
             <button class="s_done btn btn-primary" onclick="addFile()">Add</button>
             <br>
           </div>

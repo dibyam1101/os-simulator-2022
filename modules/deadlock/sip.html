@@ -410,8 +410,13 @@
     <section class="inner-page" style="padding: 150px 150px;">
 
 
-      <div class="page-header" >
+      <div class="page-header">
         <h2 style="float:center; margin-bottom: 50px;">Single-Instance Resource Deadlock Detection</h2>
+        <p>
+          When there is a single resource of each type in the operation system, deadlock detection can be done by
+          checking for cycles in the resource allocation graph. This can be done by running a DFS and checking if we
+          reach a non - parent node that has already been visited.
+        </p>
       </div>
 
       <div style="width: 100%;;margin-left:10px;text-align:left;">
@@ -421,6 +426,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-lg">Number of Resources</span>
           </div>
+
           <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
             id="totalres">
         </div>
