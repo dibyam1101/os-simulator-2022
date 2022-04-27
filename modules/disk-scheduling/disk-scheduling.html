@@ -842,6 +842,8 @@
       var int = parseInt(in_arr[flag - 1]);
       sum = sum + (int - min);
 
+      sum += (max - min)
+
       allocate_cscan();
       return sum;
     }
@@ -863,8 +865,9 @@
       var int = parseInt(in_arr[flag]);
       sum = sum + (max - int);
 
+      sum += (max - min)
       allocate_cscan();
-      return sum;
+      return sum ;
     }
   }
 
@@ -1034,6 +1037,8 @@
       var int = parseInt(in_arr[flag - 1]);
       var int2 = parseInt(in_arr[0]);
       sum = sum + (int - int2);
+      
+      sum +=  (in_arr[in_arr.length] - in_arr[0]);
 
       allocate_clook();
       return sum;
@@ -1057,9 +1062,9 @@
       var int = parseInt(in_arr[len]);
       var int2 = parseInt(in_arr[flag]);
       sum = sum + (int - int2);
-
+      sum +=  (in_arr[in_arr.length] - in_arr[0]);
       allocate_clook();
-      return sum;
+      return sum ;
     }
   }
   window.onload = function () {
