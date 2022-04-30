@@ -126,108 +126,83 @@
 
         <p><br>
         <h3>1. create()</h3> This system call is used to create a new file. It creates a new file on disk,
-        <br />
         creates a file table entry, then sets the first unused file descriptor to point to the table file
-        <br />
-        entry and then return it (or -1 upon failure)
-        <br />
+        entry and then return it (or -1 upon failure).
+        <br>
         <br>
         <h3>2. open()</h3> This system call can be used to open a file, for either reading or writing
-        <br />
         purposes. The working principle in the OS is similar to that of create() , except for the
-        <br />
-        first step. Instead of creating a file on the disk , it first reads the file from the disk
+        first step. Instead of creating a file on the disk , it first reads the file from the disk.
         <br />
         <br>
         <h3>3. close()</h3> This system call takes in a file descriptor (The ones created by the above two
-        <br />
         commands) and then closes the file which is pointed at by this file descriptor.
         <br />
         <br>
         <h3>4. read()</h3> This system call reads a certain number of bytes (passed as parameters) into
-        <br />
         the ‘buf’ memory area. It updates the access time for the file as well.
         <br />
         <br>
         <h3>5. write()</h3> This system call takes a file descriptor and a buffer and writes a certain number
-        <br />
         of bytes ( all 3 passed as parameters ) to the file associated with this file descriptor.
         <br />
         <br>
         <h3>6. lseek()</h3> This system call is used to shift the location of the pointer of a file descriptor.
-        <br />
         This location can be set in either relative terms or absolute terms.
         <br />
         <br>
         <h3>7. dup()</h3> This system call creates a copy of the file descriptor passed to it. This copy is
-        <br />
         exactly the same as the original. Both of them can be used interchangeably.
         <br />
         <br>
         <h3>8. link()</h3> This system call creates a new directory entry for an existing file.
-        <br />
+        <br>
         <br>
         <h3>9. unlink()</h3> As the name suggests, this system does the opposite of what link() does. It
-        <br />
         simply removes the directory entry for an existing file
         <br />
         <br>
         <h3>10. access()</h3> This system call checks whether or not the calling process can access a
-        <br />
         specific file or not (Passed to the call by as a parameter)
         <br />
         <br>
         <h3>11. chmod()</h3> This system call is used to change the file’s mode bits (These are the bits
-        <br />
         which specify the access control for the file Who can do what kind of changes to the
-        <br />
-        file) It takes in the path of the file whose permissions we want to change
+        file) It takes in the path of the file whose permissions we want to change.
         <br />
         <br>
         <h3>12. chown()</h3> This system call is used to change the owner and/or the group of the file
-        <br />
         (passed through a path or a file descriptor). Only a privileged process can change the
         <br />
         ownership of a file.
         <br />
         <br>
         <h3>13. unmask()</h3> This system call sets the calling process's file mode creation mask (umask)
-        <br />
         to mask & 0777. Basically, it helps us to define the default protection/access modes for
-        <br />
         any new files that we create.
         <br />
         <br>
         <h3>14. ioctl()</h3> This system call manipulates the underlying device parameters of special files.
-        <br />
         For example, in Linux, many characteristics of character special files (The terminal is
-        <br />
         one such entity), can be controlled using requests made through this system call.
         <br />
         <br>
         <h3>15. execl()</h3> This system call is used to launch/execute a program/file. It works by overriding
-        <br />
         the current process image with one of that which is launched.
         <br />
         <br>
         <h3>16. fork()</h3> This command is used for making child processes that run parallely along with
-        <br />
         the process that created them. After a new process is created, both processes execute
-        <br />
         the next instruction following the fork system call.
         <br />
         <br>
         <h3>17. wait()</h3> This system call blocks the parent process until one of its child processes exits,
-        <br />
         or an exit signal is received. After the child process terminates, the parent can continue
-        <br />
         with its own execution.
         <br />
         <br>
         <h3>18. exit()</h3> This system call is used to terminate a process normally. When this system call is
-        <br />
         made. Any file descriptors related to the file in questions are closed and the Children of
-        <br />
         this process are inherited by process 1 , init.
         <br />
         <br>
@@ -235,7 +210,6 @@
         <br />
         <br>
         <h3>20. alarm()</h3> This system call causes the program to generate a SIGALRM signal for the
-        <br />
         process after a certain number of seconds have elapsed.
         <br />
         <br>
@@ -243,12 +217,10 @@
         <br />
         <br>
         <h3>22. signal()</h3> This system call installs a new signal handler for the signal with number
-        <br />
         signum.
         <br />
         <br>
         <h3>23. getppid()</h3> This system call returns the process ID (PID) of the parent of the calling
-        <br />
         process.
         <br />
         <br>
@@ -261,7 +233,7 @@
         <h3>26. geteuid()</h3> This system call returns the effective user ID of the current process.
         <br />
         <br>
-        <h3>27. getuid()</h3> This system call return the REAL user ID of the current process
+        <h3>27. getuid()</h3> This system call return the REAL user ID of the current process.
         </p>
       </div>
     </section>
